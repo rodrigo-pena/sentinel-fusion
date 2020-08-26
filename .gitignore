@@ -1,0 +1,7 @@
+.DS_Store
+
+.vscode/*
+.ipynb_checkpoints/*
+
+data/Sentinel-2
+data/Sentinel-3
