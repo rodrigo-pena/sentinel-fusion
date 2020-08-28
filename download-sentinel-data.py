@@ -10,7 +10,7 @@ from datetime import datetime
 
 DHUS_URL = 'https://scihub.copernicus.eu/dhus'
 DATA_DIR = os.path.join(os.getcwd(), 'data')
-DEFAULT_GEOJSON = 'switzerland.geojson'
+DEFAULT_GEOJSON = 'greater-geneva-rectangle.geojson'
 
 
 def create_folder(folder_name, root_path=os.getcwd()):
@@ -167,8 +167,11 @@ if __name__ == "__main__":
     area = geojson_to_wkt(read_geojson(geojson_path))
 
     # Period of interest as a tuple (start, end)
+    # Sentinel-2 covers the globe in 5 days; Sentinel-3 does it every day.
+    # Taking at least 5 days ensures that both satellites measure the AOI
+    # specified in the .geojson file.
     date = (datetime(2020, 8, 1, 0, 0, 0, 0),
-            datetime(2020, 8, 2, 0, 0, 0, 0))
+            datetime(2020, 8, 6, 0, 0, 0, 0))
 
     s2_products, s2_size, s2_info = download(area, date, 'Sentinel-2')
     s3_products, s3_size, s3_info = download(area, date, 'Sentinel-3')
