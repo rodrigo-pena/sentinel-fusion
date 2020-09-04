@@ -1,0 +1,7 @@
+46.552	# North latitude bound
+5.692	# West longitude bound
+45.923	# South latitude bound
+6.557	# East longitude bound
+
+# In Well-Known Text:
+"POLYGON ((5.692 45.923, 6.557 45.923, 6.557 46.552, 5.692 46.552, 5.692 45.923))"

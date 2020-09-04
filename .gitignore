@@ -3,5 +3,10 @@
 .vscode/*
 .ipynb_checkpoints/*
 
-data/Sentinel-2
-data/Sentinel-3
+data/Sentinel-2/*.SAFE
+data/Sentinel-2/*.data
+data/Sentinel-2/*.dim
+
+data/Sentinel-3/*.SEN3
+data/Sentinel-3/*.data
+data/Sentinel-3/*.dim

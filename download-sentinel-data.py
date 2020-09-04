@@ -85,7 +85,7 @@ def download(area, date, platformname):
         downloaded product.
     """
     if (platformname == 'Sentinel-2'):
-        producttype = 'S2MSI1C'
+        producttype = 'S2MSI2A'
     elif (platformname == 'Sentinel-3'):
         producttype = 'SL_2_LST___'
     else:
@@ -161,7 +161,7 @@ if __name__ == "__main__":
 
     # Area of interest in Well-Known Text format
     if (args.aoi is None):
-        geojson_path = os.path.join(DATA_DIR, DEFAULT_GEOJSON)
+        geojson_path = os.path.join(DATA_DIR, 'geometry', DEFAULT_GEOJSON)
     else:
         geojson_path = args.aoi
     area = geojson_to_wkt(read_geojson(geojson_path))
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     # Taking at least 5 days ensures that both satellites measure the AOI
     # specified in the .geojson file.
     date = (datetime(2020, 8, 1, 0, 0, 0, 0),
-            datetime(2020, 8, 6, 0, 0, 0, 0))
+            datetime(2020, 8, 7, 0, 0, 0, 0))
 
     s2_products, s2_size, s2_info = download(area, date, 'Sentinel-2')
     s3_products, s3_size, s3_info = download(area, date, 'Sentinel-3')
