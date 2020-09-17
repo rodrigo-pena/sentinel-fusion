@@ -1,0 +1,1 @@
+This is the default directory for download of Sentinel-3 data.
