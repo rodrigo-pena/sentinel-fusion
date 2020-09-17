@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-@author: radoslaw guzinski
-Copyright: (C) 2017, Radoslaw Guzinski
-"""
 import os
 import time
 
@@ -12,30 +7,38 @@ import pyDMS.pyDMSUtils as utils
 from pyDMS.pyDMS import DecisionTreeSharpener, NeuralNetworkSharpener
 from pyDMS.pyDMS import REG_sknn_ann, REG_sklearn_ann
 
-highResFilename = r""
-lowResFilename = r""
-lowResMaskFilename = r""
-outputFilename = r""
+DATA_DIR = os.path.join(os.getcwd(), 'data')
 
-##########################################################################################
+highResFilename = os.path.join(DATA_DIR, 'hr_optical.tif')
+lowResFilename = os.path.join(DATA_DIR, 'lr_lst.tif')
+lowResMaskFilename = r""
+outputFilename = os.path.join(DATA_DIR, 'lst_sharpened.tif')
 
 if __name__ == "__main__":
 
     useDecisionTree = True
 
-    commonOpts = {"highResFiles":               [highResFilename],
-                  "lowResFiles":                [lowResFilename],
-                  "lowResQualityFiles":         [lowResMaskFilename],
-                  "lowResGoodQualityFlags":     [255],
-                  "cvHomogeneityThreshold":     0,
-                  "movingWindowSize":           15,
-                  "disaggregatingTemperature":  True}
-    dtOpts =     {"perLeafLinearRegression":    True,
-                  "linearRegressionExtrapolationRatio": 0.25}
-    sknnOpts =   {'hidden_layer_sizes':         (10,),
-                  'activation':                 'tanh'}
-    nnOpts =     {"regressionType":             REG_sklearn_ann,
-                  "regressorOpt":               sknnOpts}
+    commonOpts = {
+        "highResFiles":               [highResFilename],
+        "lowResFiles":                [lowResFilename],
+        "lowResQualityFiles":         [lowResMaskFilename],
+        "lowResGoodQualityFlags":     [255],
+        "cvHomogeneityThreshold":     0,
+        "movingWindowSize":           15,
+        "disaggregatingTemperature":  True
+        }
+    dtOpts = {
+        "perLeafLinearRegression": True,
+        "linearRegressionExtrapolationRatio": 0.25
+        }
+    sknnOpts = {
+        'hidden_layer_sizes': (10,),
+        'activation': 'tanh'
+        }
+    nnOpts = {
+        "regressionType": REG_sklearn_ann,
+        "regressorOpt": sknnOpts
+        }
 
     start_time = time.time()
 
@@ -50,12 +53,19 @@ if __name__ == "__main__":
 
     print("Training regressor...")
     disaggregator.trainSharpener()
+
     print("Sharpening...")
-    downscaledFile = disaggregator.applySharpener(highResFilename, lowResFilename)
+    downscaledFile = disaggregator.applySharpener(highResFilename,
+                                                  lowResFilename)
+
     print("Residual analysis...")
-    residualImage, correctedImage = disaggregator.residualAnalysis(downscaledFile, lowResFilename,
-                                                                   lowResMaskFilename,
-                                                                   doCorrection=True)
+    residualImage, correctedImage = disaggregator.residualAnalysis(
+        downscaledFile,
+        lowResFilename,
+        lowResMaskFilename,
+        doCorrection=True
+        )
+
     print("Saving output...")
     highResFile = gdal.Open(highResFilename)
     if correctedImage is not None:
@@ -70,7 +80,8 @@ if __name__ == "__main__":
     residualFile = utils.saveImg(residualImage.GetRasterBand(1).ReadAsArray(),
                                  residualImage.GetGeoTransform(),
                                  residualImage.GetProjection(),
-                                 os.path.splitext(outputFilename)[0] + "_residual" +
+                                 os.path.splitext(outputFilename)[0] +
+                                 "_residual" +
                                  os.path.splitext(outputFilename)[1])
 
     outFile = None

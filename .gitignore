@@ -1,7 +1,16 @@
 .DS_Store
 
 .vscode/*
-.ipynb_checkpoints/*
+*.ipynb_checkpoints*
+.virtual_documents/*
+
+__pycache__/*
+
+build/*
+dist/*
+pyDMS.egg-info/*
+
+data/*/sentinel_data_download*.txt
 
 data/Sentinel-2/*.SAFE
 data/Sentinel-2/*.data
