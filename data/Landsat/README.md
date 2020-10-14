@@ -1,0 +1,1 @@
+This is the default directory for download of Landsat 8 OLI/TIR Level-1 data.

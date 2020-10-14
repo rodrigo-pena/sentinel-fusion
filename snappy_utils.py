@@ -55,7 +55,8 @@ def write_snappy_product(file_path, bands, product_name, geo_coding):
     product.writeHeader(String(file_path))
     for b in bands:
         band = product.getBand(b['band_name'])
-        band.writePixels(0, 0, width, height, b['band_data'].astype(np.float32))
+        band.writePixels(0, 0, width, height,
+                         b['band_data'].astype(np.float32))
     product.closeIO()
 
 

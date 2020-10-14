@@ -224,7 +224,7 @@ def incidence_angle_tilted(lat, lon, doy, ftime, stdlon=0, A_ZS=0, slope=0):
         cosine of the incidence angle
     '''
 
-    # Get the dclination and hour angle
+    # Get the declination and hour angle
     delta = declination_angle(doy)
     omega = hour_angle(ftime, delta, lon, stdlon=stdlon)
 
