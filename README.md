@@ -124,7 +124,7 @@ The processed low-resolution LST product should look like this:
 
 Finally, the quality mask product contains a boolean map indicating which pixels have good quality temperature measurements and which don't. Its view looks like this (white pixels are good):
 
-![Quality Mask](/images/thumb_S3B_SL_2_LST____20200818T100722_20200818T101022_20200819T161150_0179_042_236_2160_LN2_O_NT_004_processed_quality_mask.bmp)
+![Quality Mask](/images/thumb_S3B_SL_2_LST____20200818T100722_20200818T101022_20200819T161150_0179_042_236_2160_LN2_O_NT_004_processed_mask.bmp)
 
 *Optional:* If you want to run the validation scripts to compare the sharpening result to Landsat thermal infrared (TIR) imagery, you should also run
 
