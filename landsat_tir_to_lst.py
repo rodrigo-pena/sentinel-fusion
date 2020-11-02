@@ -342,32 +342,45 @@ def main(landsat_product_path, band_number, lst_output):
     lst = bt_to_lst(bt, lse, band_number)
 
     # Write estimated LST into new GeoTiff
-    print('INFO: Saving GeoTiff output...')
+    print('INFO: Saving output...')
     driver = gdal.GetDriverByName("GTiff")
     driver.Register()
     # Ensure that output is saved in GeoTiff format
-    lst_output = os.path.splitext(lst_output)[0] + '.TIF'
-    lst_data = driver.CreateCopy(lst_output, tir_data, strict=0)
+    file_name = os.path.splitext(lst_output)[0] + '.TIF'
+    lst_data = driver.CreateCopy(file_name, tir_data, strict=0)
     lst_data.GetRasterBand(1).WriteArray(lst)
     lst_data.GetRasterBand(1).FlushCache()
 
     # Clean up
     tir_data = None
     lst_data = None
+    try:
+        os.remove(os.path.splitext(lst_output)[0] + '.IMD')
+    except Exception:
+        pass
 
-    # # Write the LST as a BEAM-DIMAP product as well
-    print('INFO: Saving BEAM_DIMAP output...')
-    product = ProductIO.readProduct(lst_output)
-    band = {
-        "band_name": "LST",
-        "description": "LST estimated from Landsat TIR",
-        "unit": "K",
-        "band_data": lst
-    }
-    geo_coding = product.getSceneGeoCoding()
-    # Ensure that output is saved in BEAM-DIMAP format
-    lst_output = os.path.splitext(lst_output)[0] + '.dim'
-    su.write_snappy_product(lst_output, [band], "Landsat_LST", geo_coding)
+    # Keep a BEAM-DIMAP file instead if the output extension is '.dim'
+    ext = os.path.splitext(lst_output)[-1]
+    if ext.casefold() == '.dim':
+        # Read from recently saved GeoTiff
+        old_file_name = file_name
+        product = ProductIO.readProduct(old_file_name)
+        band = {
+            "band_name": "LST",
+            "description": "LST estimated from Landsat TIR",
+            "unit": "K",
+            "band_data": lst
+        }
+        geo_coding = product.getSceneGeoCoding()
+        file_name = os.path.splitext(lst_output)[0] + '.dim'
+        su.write_snappy_product(file_name, [band], "Landsat_LST", geo_coding)
+        try:
+            os.remove(old_file_name)  # Remove GeoTiff copy
+        except Exception:
+            pass
+    elif (ext.casefold() != '.TIF') and (ext.casefold() != '.TIFF'):
+        print("INFO: Given output file extension was not recognized. " +
+              "Output was saved as a GeoTiff instead.")
 
 
 if __name__ == "__main__":

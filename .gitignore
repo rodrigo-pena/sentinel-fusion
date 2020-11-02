@@ -10,6 +10,7 @@ build/*
 dist/*
 pyDMS.egg-info/*
 
+# Data
 data/*/sentinel_data_download*.txt
 
 data/**/*.SAFE
@@ -18,3 +19,7 @@ data/**/*.data
 data/**/*.dim
 data/**/*.jpg
 data/**/*.tif
+
+# Images
+images/*
+!images/thumb_*

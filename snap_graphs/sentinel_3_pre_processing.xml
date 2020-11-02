@@ -95,33 +95,6 @@
       <formatName>BEAM-DIMAP</formatName>
     </parameters>
   </node>
-  <node id="Subset_obs_geometry">
-    <operator>Subset</operator>
-    <sources>
-      <sourceProduct refid="Subset_AOI"/>
-    </sources>
-    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <sourceBands>sat_zenith_tn,solar_zenith_tn,longitude_tx,latitude_tx</sourceBands>
-      <region/>
-      <referenceBand/>
-      <geoRegion/>
-      <subSamplingX>1</subSamplingX>
-      <subSamplingY>1</subSamplingY>
-      <fullSwath>false</fullSwath>
-      <tiePointGridNames/>
-      <copyMetadata>true</copyMetadata>
-    </parameters>
-  </node>
-  <node id="Write_obs_geometry">
-    <operator>Write</operator>
-    <sources>
-      <sourceProduct refid="Subset_obs_geometry"/>
-    </sources>
-    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>${output_observation_geometry}</file>
-      <formatName>BEAM-DIMAP</formatName>
-    </parameters>
-  </node>
   <node id="BandMaths_mask">
     <operator>BandMaths</operator>
     <sources>
@@ -167,12 +140,6 @@
     </node>
     <node id="Subset_LST">
       <displayPosition x="378.0" y="70.0"/>
-    </node>
-    <node id="Subset_obs_geometry">
-      <displayPosition x="377.0" y="140.0"/>
-    </node>
-    <node id="Write_obs_geometry">
-      <displayPosition x="543.0" y="140.0"/>
     </node>
     <node id="BandMaths_mask">
       <displayPosition x="374.0" y="210.0"/>

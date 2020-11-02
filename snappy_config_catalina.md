@@ -39,7 +39,7 @@ If everything goes right the Python code
 
 ```python
 from snappy import ProductIO
-p = ProductIO.readProduct('snappy/testdata/MER_FRS_L1B_SUBSET.dim')
+p = ProductIO.readProduct('testdata/MER_FRS_L1B_SUBSET.dim')
 list(p.getBandNames())
 ```
 

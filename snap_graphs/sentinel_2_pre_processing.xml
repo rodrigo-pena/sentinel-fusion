@@ -33,7 +33,7 @@
       <referenceBand/>
       <targetWidth/>
       <targetHeight/>
-      <targetResolution>20</targetResolution>
+      <targetResolution>${pixel_res}</targetResolution>
       <upsampling>Nearest</upsampling>
       <downsampling>First</downsampling>
       <flagDownsampling>First</flagDownsampling>
