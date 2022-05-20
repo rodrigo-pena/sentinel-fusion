@@ -4,6 +4,8 @@ Fusing data from the ESA Copernicus Programme's Sentinel missions.
 
 This repository implements code to increase the resolution of the Land Surface Temperature (LST) band of Sentinel-3 (1km pixel size) by exploiting the higher resolution visible spectrum bands of Sentinel-2 (10-60m pixel size).
 
+[![DOI](https://zenodo.org/badge/289903198.svg)](https://zenodo.org/badge/latestdoi/289903198)
+
 ## 1. Setup
 
 *Warning*: these instructions have been tested on a macOS Catalina Version 10.15.6. You might have to adapt the steps below according to your system.
